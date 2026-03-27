@@ -12,10 +12,10 @@ public class Patient extends PanacheEntity {
     public String lastName;
     public String dateOfBirth;
 
-    @OneToOne(mappedBy = "patient")
+    @OneToOne(mappedBy = "patient", fetch = FetchType.LAZY)
     public MedicalRecord medicalRecord;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "patient_doctor",
             joinColumns = @JoinColumn(name = "patient_id"),

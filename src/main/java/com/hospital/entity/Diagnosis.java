@@ -11,6 +11,6 @@ public class Diagnosis extends PanacheEntity {
     public String name;
     public String description;
 
-    @ManyToMany(mappedBy = "diagnoses")
+    @ManyToMany(mappedBy = "diagnoses", fetch = FetchType.LAZY)
     public List<Examination> examinations;
 }

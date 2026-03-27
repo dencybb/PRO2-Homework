@@ -11,6 +11,6 @@ public class Department extends PanacheEntity {
     public String name;
     public String location;
 
-    @OneToMany(mappedBy = "department")
+    @OneToMany(mappedBy = "department", fetch = FetchType.LAZY)
     public List<Doctor> doctors;
 }

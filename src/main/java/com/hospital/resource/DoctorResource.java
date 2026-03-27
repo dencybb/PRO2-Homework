@@ -1,6 +1,8 @@
 package com.hospital.resource;
 
 import com.hospital.entity.Doctor;
+import com.hospital.entity.Examination;
+import com.hospital.entity.Patient;
 import com.hospital.service.DoctorService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -24,5 +26,29 @@ public class DoctorResource {
     @GET
     public List<Doctor> getAll() {
         return doctorService.getAll();
+    }
+
+    @GET
+    @Path("/{id}")
+    public Doctor getById(@PathParam("id") Long id) {
+        return doctorService.getById(id);
+    }
+
+    @GET
+    @Path("/search")
+    public List<Doctor> searchByLastName(@QueryParam("lastName") String lastName) {
+        return doctorService.searchByLastName(lastName);
+    }
+
+    @GET
+    @Path("/{id}/examinations")
+    public List<Examination> getExaminations(@PathParam("id") Long id) {
+        return doctorService.getExaminations(id);
+    }
+
+    @GET
+    @Path("/{id}/patients")
+    public List<Patient> getPatients(@PathParam("id") Long id) {
+        return doctorService.getPatients(id);
     }
 }

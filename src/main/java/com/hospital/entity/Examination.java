@@ -11,15 +11,18 @@ public class Examination extends PanacheEntity {
     public String date;
     public String description;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "doctor_id")
     public Doctor doctor;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "examination_diagnosis",
             joinColumns = @JoinColumn(name = "examination_id"),
             inverseJoinColumns = @JoinColumn(name = "diagnosis_id")
     )
     public List<Diagnosis> diagnoses;
+
+    @OneToOne(mappedBy = "examination", fetch = FetchType.LAZY)
+    public ExaminationReport examinationReport;
 }

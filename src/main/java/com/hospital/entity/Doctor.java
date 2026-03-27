@@ -12,13 +12,16 @@ public class Doctor extends PanacheEntity {
     public String lastName;
     public String specialization;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
     public Department department;
 
-    @OneToMany(mappedBy = "doctor")
+    @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY)
     public List<Examination> examinations;
 
-    @ManyToMany(mappedBy = "doctors")
+    @ManyToMany(mappedBy = "doctors", fetch = FetchType.LAZY)
     public List<Patient> patients;
+
+    @OneToOne(mappedBy = "doctor", fetch = FetchType.LAZY)
+    public DoctorProfile doctorProfile;
 }

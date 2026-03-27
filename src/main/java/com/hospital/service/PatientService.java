@@ -23,4 +23,12 @@ public class PatientService {
     public List<Patient> getAll() {
         return patientRepository.listAll();
     }
+
+    public Patient getById(Long id) {
+        return patientRepository.findById(id);
+    }
+
+    public List<Patient> searchByFirstName(String firstName) {
+        return patientRepository.find("firstName", firstName).list();
+    }
 }

@@ -25,4 +25,16 @@ public class PatientResource {
     public List<Patient> getAll() {
         return patientService.getAll();
     }
+
+    @GET
+    @Path("/{id}")
+    public Patient getById(@PathParam("id") Long id) {
+        return patientService.getById(id);
+    }
+
+    @GET
+    @Path("/search")
+    public List<Patient> searchByFirstName(@QueryParam("firstName") String firstName) {
+        return patientService.searchByFirstName(firstName);
+    }
 }
