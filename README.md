@@ -1,71 +1,50 @@
-# hospital
+# PRO2 Homework
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+## Prvi domaci zadatak
 
-If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
+### Opis projekta
+Bolnički sistem razvijen u Quarkusu sa PostgreSQL bazom podataka.
 
-## Running the application in dev mode
+## ER Dijagram
+![ER Dijagram](screenshots/dijagram.png)
 
-You can run your application in dev mode that enables live coding using:
-```shell script
-./mvnw compile quarkus:dev
-```
+### Relacije
+- Department → Doctor: OneToMany (1:N)
+- Doctor → Examination: OneToMany (1:N)
+- Patient ↔ MedicalRecord: OneToOne (1:1)
+- Patient ↔ Doctor: ManyToMany (M:N)
+- Examination ↔ Diagnosis: ManyToMany (M:N)
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
+### API Endpoints
+- `POST /patients` - dodavanje pacijenta
+- `GET /patients` - dohvatanje svih pacijenata
+- `POST /doctors` - dodavanje doktora
+- `GET /doctors` - dohvatanje svih doktora
 
-## Packaging and running the application
+### Testiranje (Postman)
+![POST pacijent](screenshots/post-patient.png.png)
+![GET pacijenti](screenshots/get-patients.png.png)
 
-The application can be packaged using:
-```shell script
-./mvnw package
-```
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
+---
 
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
+## Drugi domaci zadatak
 
-If you want to build an _über-jar_, execute the following command:
-```shell script
-./mvnw package -Dquarkus.package.type=uber-jar
-```
+### Nove @OneToOne relacije
+- Doctor ↔ DoctorProfile
+- Examination ↔ ExaminationReport
 
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
+### FetchType.LAZY
+Sve kolekcije su postavljene na FetchType.LAZY.
 
-## Creating a native executable
+### Metode pretrage
+- `GET /patients/search?firstName=` - pretraga pacijenata po imenu
+- `GET /doctors/search?lastName=` - pretraga doktora po prezimenu
 
-You can create a native executable using: 
-```shell script
-./mvnw package -Dnative
-```
+### Novi endpointi
+- `GET /patients/{id}` - pacijent po ID-u
+- `GET /doctors/{id}` - doktor po ID-u
+- `GET /doctors/{id}/examinations` - pregledi doktora
+- `GET /doctors/{id}/patients` - pacijenti doktora
 
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using: 
-```shell script
-./mvnw package -Dnative -Dquarkus.native.container-build=true
-```
-
-You can then execute your native executable with: `./target/hospital-1.0.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult https://quarkus.io/guides/maven-tooling.
-
-## Related Guides
-
-- Hibernate ORM with Panache ([guide](https://quarkus.io/guides/hibernate-orm-panache)): Simplify your persistence code for Hibernate ORM via the active record or the repository pattern
-- JDBC Driver - PostgreSQL ([guide](https://quarkus.io/guides/datasource)): Connect to the PostgreSQL database via JDBC
-
-## Provided Code
-
-### Hibernate ORM
-
-Create your first JPA entity
-
-[Related guide section...](https://quarkus.io/guides/hibernate-orm)
-
-
-[Related Hibernate with Panache section...](https://quarkus.io/guides/hibernate-orm-panache)
-
-
-### RESTEasy JAX-RS
-
-Easily start your RESTful Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started#the-jax-rs-resources)
+### Scheduler
+Quarkus @Scheduler loguje broj pacijenata u bazi svakih 60 sekundi.
