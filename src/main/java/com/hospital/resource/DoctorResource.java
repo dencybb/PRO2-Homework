@@ -7,6 +7,7 @@ import com.hospital.service.DoctorService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.annotation.security.RolesAllowed;
 
 import java.util.List;
 
@@ -24,6 +25,7 @@ public class DoctorResource {
     }
 
     @GET
+    @RolesAllowed("admin")
     public List<Doctor> getAll() {
         return doctorService.getAll();
     }
