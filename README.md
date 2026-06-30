@@ -49,7 +49,6 @@ Endpoint `GET /doctors` zastiscen anotacijom `@RolesAllowed("admin")` — dostup
 Token se dobija POST requestom na Keycloak token endpoint, nakon cega se salje kao Bearer Token u Authorization headeru.
 ![Keycloak token](screenshots/keycloak1.png)
 ![Zastisceni endpoint](screenshots/keycloak2.png)
-
 ---
 ## Priprema za kolokvijum
 ### REST klijent za vremenske zone
@@ -59,7 +58,11 @@ Implementiran REST klijent koji dobija javnu IP adresu (ipify.org), a zatim na o
 ### Endpoint
 - `GET /patients/getTimezoneByIP?userId=xxx` - pronalazi pacijenta po ID-u, poziva eksterne API-je i pridruzuje mu podatke o vremenskoj zoni
 ### Exception handling
-
+Ukoliko pacijent sa proslijedjenim ID-jem ne postoji, baca se `NotFoundException` koja se mapira na HTTP status 404.
+### Testiranje (Postman)
+![Dodavanje pacijenta](screenshots/1.png)
+![Uspjesan poziv - timezone pridruzen](screenshots/byID.png)
+![Poziv sa userId koji ne postoji - 404](screenshots/404.png)
 ---
 ## Peti domaci zadatak
 ### Upload fajlova
@@ -75,9 +78,4 @@ Implementirana mogucnost upload-a fajlova i njihovo povezivanje sa pacijentom.
 ### Logika
 Ukoliko fajl sa istim imenom vec postoji u bazi, koristi se postojeci zapis umjesto kreiranja duplikata.
 ### Testiranje (Postman)
-![Upload fajla](screenshots/uploadFile.png)
-Ukoliko pacijent sa proslijedjenim ID-jem ne postoji, baca se `NotFoundException` koja se mapira na HTTP status 404.
-### Testiranje (Postman)
-![Dodavanje pacijenta](screenshots/1.png)
-![Uspjesan poziv - timezone pridruzen](screenshots/byID.png)
-![Poziv sa userId koji ne postoji - 404](screenshots/404.png)
+![Upload fajla](screenshots/FileUpload.png)
