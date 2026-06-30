@@ -30,4 +30,12 @@ public class Patient extends PanacheEntity {
     @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public List<TimeZone> timeZones;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "patient_uploaded_file",
+            joinColumns = @JoinColumn(name = "patient_id"),
+            inverseJoinColumns = @JoinColumn(name = "uploaded_file_id")
+    )
+    public List<UploadedFile> uploadedFiles;
+
 }
