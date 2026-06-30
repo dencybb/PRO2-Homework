@@ -2,6 +2,7 @@ package com.hospital.resource;
 
 import com.hospital.entity.Patient;
 import com.hospital.service.PatientService;
+import com.hospital.service.TimeZoneService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -15,6 +16,9 @@ public class PatientResource {
 
     @Inject
     PatientService patientService;
+
+    @Inject
+    TimeZoneService timeZoneService;
 
     @POST
     public Patient save(Patient patient) {
@@ -36,5 +40,11 @@ public class PatientResource {
     @Path("/search")
     public List<Patient> searchByFirstName(@QueryParam("firstName") String firstName) {
         return patientService.searchByFirstName(firstName);
+    }
+
+    @GET
+    @Path("/getTimezoneByIP")
+    public Patient getTimezoneByIP(@QueryParam("userId") Long userId) {
+        return timeZoneService.assignTimeZone(userId);
     }
 }
