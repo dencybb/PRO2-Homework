@@ -59,6 +59,23 @@ Implementiran REST klijent koji dobija javnu IP adresu (ipify.org), a zatim na o
 ### Endpoint
 - `GET /patients/getTimezoneByIP?userId=xxx` - pronalazi pacijenta po ID-u, poziva eksterne API-je i pridruzuje mu podatke o vremenskoj zoni
 ### Exception handling
+
+---
+## Peti domaci zadatak
+### Upload fajlova
+Implementirana mogucnost upload-a fajlova i njihovo povezivanje sa pacijentom.
+### Novi entitet UploadedFile
+- `filename` - putanja do sacuvanog fajla
+- `file` - @Transient polje, ucitava se File objekat samo prilikom citanja
+### Veza
+- Patient ↔ UploadedFile: ManyToMany (M:N)
+### Endpointi
+- `POST /patients/uploadFile?id=xxx` - Multipart request (filename + file), cuva fajl na fajlsistem ukoliko vec ne postoji, povezuje ga sa pacijentom
+- `GET /patients/{id}/files` - vraca pacijenta sa listom uploaded-ovanih fajlova, ucitanih u File objekat
+### Logika
+Ukoliko fajl sa istim imenom vec postoji u bazi, koristi se postojeci zapis umjesto kreiranja duplikata.
+### Testiranje (Postman)
+![Upload fajla](screenshots/uploadFile.png)
 Ukoliko pacijent sa proslijedjenim ID-jem ne postoji, baca se `NotFoundException` koja se mapira na HTTP status 404.
 ### Testiranje (Postman)
 ![Dodavanje pacijenta](screenshots/1.png)
